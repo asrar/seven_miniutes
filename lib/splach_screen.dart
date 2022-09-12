@@ -35,6 +35,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void NavigatorPage() {
+
+    // improving splash screen
     if (_checkUser) {
       /// if userhas never been login
       Navigator.of(context).pushReplacement(
