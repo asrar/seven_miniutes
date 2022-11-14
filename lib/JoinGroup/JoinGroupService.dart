@@ -62,10 +62,12 @@ class JoinGroupService {
     print("Date query  ${query}");
 
       print("Joining request from User ${Overseer.userName}");
+
+      print("https://7minapp.s3bits.com/api/sendRequestforJoinGroup?user_id=${Overseer.userId}&group_unique_id=${query}");
       response = await http.post(
 
         /// get the data
-          Uri.parse("https://7minapp.s3bits.com/api/sendRequestforJoinGroup?user_id=${Overseer.userId}&group_unique_id=${query}}"),
+          Uri.parse("https://7minapp.s3bits.com/api/sendRequestforJoinGroup?user_id=${Overseer.userId}&group_unique_id=${query}"),
           headers: {
             'Access-Control-Allow-Origin': '*',
             'Accept': 'application/json',

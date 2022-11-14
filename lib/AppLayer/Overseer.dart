@@ -46,6 +46,9 @@ class Overseer {
   static String topicId = "0";
   static String groupStatusCode = "";
   static String user_rule = "user";
+  static String errorMsg = "";
+  static String joinGroupRequestId = "";
+  static bool joinGroupRequest = false;
   static bool is_user_valid = false;
   static bool isSwitched = false;
   static bool is_user_Registered = false;

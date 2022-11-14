@@ -51,7 +51,7 @@ class SoundPlayer {
       await _play(whenFinished);
     } else {
        print("called paused -----");
-       if(Overseer.playtime == 40) {
+       if(Overseer.playtime == 420) {
          await _stop();
        }else {
          await _stop();

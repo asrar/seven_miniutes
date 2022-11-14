@@ -11,8 +11,7 @@ class GroupUsersService {
     http.Response response;
     print("-- calling group URL >> http://7minapp.s3bits.com/api/groupUsers?user_id=${Overseer.userId} ");
     response = await http.post(
-
-        /// get the data
+  /// get the data
         Uri.parse("http://7minapp.s3bits.com/api/groupUsers?user_id=${Overseer.userId}"),
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -33,4 +32,31 @@ class GroupUsersService {
 
     return _mainList;
   }
+
+  static Future<bool> acceptRequest(int acceptReqId) async {
+    http.Response response;
+    print("https://7minapp.s3bits.com/api/confirmRequestforJoinGroup?request_id=${acceptReqId}");
+    response = await http.post(
+      /// get the data
+        Uri.parse("https://7minapp.s3bits.com/api/confirmRequestforJoinGroup?request_id=${acceptReqId}"),
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Accept': 'application/json',
+          'Authorization':
+          'Bearer dKz99vl2FrdIpccgb1GUbXcNgfzpqvLrEg6gs5EscioQzy2iwdezfWEuLUY3',
+        });
+    print("got the response");
+    String content = response.body;
+    Overseer.printWrapped("this is the body of group user ${content}");
+    var jString = [content];
+
+    String arr = jString.toString();
+    if(arr.contains("Request Confirmed")) {
+      return true;
+    }else{
+      return false;
+    }
+
+
+}
 }

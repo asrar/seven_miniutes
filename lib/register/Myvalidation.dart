@@ -37,6 +37,7 @@ mixin Myvalidation {
 
   final passwordLength =
       StreamTransformer<String, String>.fromHandlers(handleData: (value, sink) {
+        print("--which password -- ${value} ");
     if (isPasswordValidLength(value)) {
       sink.add(value);
     } else {

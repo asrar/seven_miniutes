@@ -193,12 +193,12 @@ class _HomePrayerState extends State<HomePrayer> {
             alignment: Alignment.centerLeft,
             // alignment: Alignment.bottomRight,
             children: <Widget>[
-              Overseer.playtime != 20 ?
+              Overseer.playtime != 420 ?
               Align(
                 alignment: Alignment.bottomLeft,
                 child: buildPlayer(),
               ):SizedBox(width: 1,),
-              Overseer.playtime == 20 ?
+              Overseer.playtime == 420 ?
               Align(
                 alignment: Alignment.bottomCenter,
                 child:  Container(
@@ -230,7 +230,7 @@ class _HomePrayerState extends State<HomePrayer> {
                 alignment: Alignment.bottomCenter,
                 child: Text("JazakAllah for listening"),
               ),
-              Overseer.playtime != 20 ?
+              Overseer.playtime != 420 ?
               Align(
                 alignment: Alignment.bottomRight,
                 child: buildPlay(),

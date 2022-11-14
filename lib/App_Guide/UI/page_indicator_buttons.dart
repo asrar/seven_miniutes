@@ -35,7 +35,7 @@ class SkipButton extends StatelessWidget {
       opacity = pageButtonViewModel.slidePercent;
     }
 
-    return FlatButton(
+    return TextButton(
       onPressed: onTap,
       child: Opacity(
         opacity: opacity,
@@ -77,7 +77,7 @@ class NextButton extends StatelessWidget {
       opacity = pageButtonViewModel.slidePercent;
     }
 
-    return FlatButton(
+    return TextButton(
       onPressed: onTap,
       child: Opacity(
         opacity: opacity,
@@ -118,7 +118,7 @@ class DoneButton extends StatelessWidget {
       opacity = 1.0 - pageButtonViewModel.slidePercent;
     }
 
-    return FlatButton(
+    return TextButton(
       onPressed: onTap,
       child: Opacity(
         opacity: opacity,

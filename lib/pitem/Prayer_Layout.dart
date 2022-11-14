@@ -10,6 +10,8 @@ import 'package:seven_minutes/tabbar_layout.dart';
 import 'package:get/get.dart';
 
 import '../BottomNavigationBar/bottom_tabbed-old.dart';
+
+
 class PrayerLayout extends StatefulWidget {
   @override
   _PrayerLayoutState createState() => _PrayerLayoutState();
@@ -17,9 +19,16 @@ class PrayerLayout extends StatefulWidget {
 
 class _PrayerLayoutState extends State<PrayerLayout> {
   int selectIndex = 10;
+  List<String> listIndex = List<String>.empty();
+
+
+
 
   @override
   Widget build(BuildContext context) {
+    for(int ind=1; ind<=30;ind++){
+
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -97,47 +106,91 @@ class _PrayerLayoutState extends State<PrayerLayout> {
           Expanded(
             child: ListView.builder(
                 itemCount: 30,
-                itemBuilder: (context, index) {
-                  int date = index+1;
-                  if (index == selectIndex) {
-                    return Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Overseer.playtime = 0;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomePrayer()));
-                          },
-                          child: Container(
-                            color: Colors.blue.shade200,
-                            height: 200,
-                            width: 350,
+                itemBuilder: (context, ind) {
+                  int index = ind + 1;
 
 
-                            child: Card(
+                  int day = DateTime.now().day;
 
-                              semanticContainer: false,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Image.asset('assets/images/today.jpeg'),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              elevation: 5,
-                              margin: EdgeInsets.all(10),
-                            ),
+                  //   if (index == selectIndex) {
+                  return Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Overseer.playtime = 0;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SunnahHomeScreen()));
+                        },
+                        child: Container(
+                          color: Color.fromRGBO(15, 117, 188, 1) ,
+                          height: day != index ? 30 : 160,
+                          width: day != index ? 350 :350,
+                          child: Card(
+                            color: day != index ?Color.fromRGBO(15, 117, 188, 1) : Colors.white,
+                            semanticContainer: false,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child:Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  day != index ? SizedBox(height: 2,) :
+                                  Image.asset(
+                                      'assets/images/n-indix-${index}.png'),
+                                  day != index ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Text("${index}"
+                                          ,style: TextStyle(
+                                              color: Colors.white,
+                                              letterSpacing: 1,
+                                              fontSize: 15,
+                                              fontFamily: 'Comfortaa',
+                                              fontWeight: FontWeight.w900),
+                                        ),
+                                      ),
+                                    ],)
+                                      :
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Text("${index}"
+                                          ,style: TextStyle(
+                                              color: Color.fromRGBO(15, 117, 188, 1),
+                                              letterSpacing: 1,
+                                              fontSize: 15,
+                                              fontFamily: 'Comfortaa',
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                    ],),
+
+                                ]
+                            ) ,
+
+
+
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(2.0),
+                            // ),
+                            elevation: 2,
+                            // margin: EdgeInsets.all(2),
                           ),
                         ),
-                        Divider()
+                      ),
+                      Divider()
                       ],
                     );
-                  } else {
-                    return Padding(
-                        padding: EdgeInsets.only(left: 10, top: 10, right: 10),
-                        child: sunnahLessonContainer(
-                            txt: 'Prayer', dateText: '$date  June  2021'));
-                  }
+                  // cell with date  } else {
+                  //   return Padding(
+                  //       padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+                  //       child: sunnahLessonContainer(
+                  //           txt: 'Prayer', dateText: '$date  June  2021'));
+                  // }
                 }),
           )
         ],

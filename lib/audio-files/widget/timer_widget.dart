@@ -53,9 +53,9 @@ class _TimerWidgetState extends State<TimerWidget> {
         Overseer.playtime = 40;
         print("-- time is up now . jazakAllah");
       }
-      if(seconds == 20 ){
+      if(seconds == 420 ){
         timer?.cancel();
-        Overseer.playtime = 20;
+        Overseer.playtime = 420;
         print("-- time is up now . jazakAllah");
       }
       if (seconds < 0) {

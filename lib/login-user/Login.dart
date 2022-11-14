@@ -220,9 +220,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
 
                           if (snapshot.hasData) {
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                                content: new Text("Submitting ...")
-                            ));
+                            // Scaffold.of(context).showSnackBar(new SnackBar(
+                            //     content: new Text("Submitting ...")
+                            // ));
                             print("yes has data ");
 
                             manager.isFormSubmit$.listen((event) {

@@ -10,15 +10,52 @@ class SunnahLayout extends StatefulWidget {
   _SunnahLayoutState createState() => _SunnahLayoutState();
 }
 
+
+
 class _SunnahLayoutState extends State<SunnahLayout> {
+
+
+  void initState() {
+    super.initState();
+
+    // take to 7Min App
+  }
+
   int selectIndex = 19;
-
-
+  bool light = false;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
+        floatingActionButtonLocation:FloatingActionButtonLocation.startFloat,
+      floatingActionButton:InkWell(
+        splashColor: Colors.blue,
+        onLongPress: () {
+
+          setState((){
+            light = true;
+          });
+
+
+
+          print("ON LONG PRESS CALLED");
+          // handle your long press functionality here
+        },
+
+        child: FloatingActionButton(
+          autofocus: true,
+          hoverColor: Colors.orange,
+          focusColor: Colors.red,
+
+          onPressed: (){
+            setState((){
+              light = false;
+            });
+      print("on press");
+          },
+          backgroundColor: Colors.red,
+        ),
+      ),
       body: Column(
         children: [
           Container(
@@ -39,7 +76,7 @@ class _SunnahLayoutState extends State<SunnahLayout> {
                         // },
                         child: Container(
                           child:
-                          Icon(Icons.person_outline, color: Colors.white),
+                              Icon(Icons.person_outline, color: Colors.white),
                         ),
                       )
                     ],
@@ -92,47 +129,98 @@ class _SunnahLayoutState extends State<SunnahLayout> {
           Expanded(
             child: ListView.builder(
                 itemCount: 30,
-                itemBuilder: (context, index) {
-                  int date =index+1;
-                  if (index == selectIndex) {
-                    return Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Overseer.playtime = 0;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SunnahHomeScreen()));
-                          },
-                          child: Container(
-                            color: Colors.blue.shade200,
-                            height: 200,
-                            width: 350,
+                itemBuilder: (context, ind) {
+                  int index = ind + 1;
+
+                  int day = DateTime.now().day;
+                  //   if (index == selectIndex) {
+                  return Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Overseer.playtime = 0;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SunnahHomeScreen()));
+                        },
+                        child: Container(
+                          color: Color.fromRGBO(15, 117, 188, 1) ,
+                          height: light ? 190 : day != index ? 30 : 190,
+                          width: light ? 350 :day != index ? 350 :350,
+                          child: Card(
+                            color: light ? Colors.white : day != index ?Color.fromRGBO(15, 117, 188, 1) : Colors.white,
+                            semanticContainer: false,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child:Column(
+                                mainAxisSize: MainAxisSize.min,
+                           children: [
+                            light ? Image.asset(
+                                'assets/images/indix-${index}.png') : day != index ? SizedBox(height: 2,) :
+                             Image.asset(
+                                 'assets/images/indix-${index}.png'),
+                             light ?  Row(
+                               mainAxisAlignment: MainAxisAlignment.end,
+                               children: [
+                                 Padding(
+                                   padding: const EdgeInsets.only(right: 8.0),
+                                   child: Text("${index}"
+                                     ,style: TextStyle(
+                                         color: Color.fromRGBO(15, 117, 188, 1),
+                                         letterSpacing: 1,
+                                         fontSize: 15,
+                                         fontFamily: 'Comfortaa',
+                                         fontWeight: FontWeight.w400),
+                                   ),
+                                 ),
+                               ],) :  day != index ? Row(
+                               mainAxisAlignment: MainAxisAlignment.end,
+                               children: [
+                                 Padding(
+                                   padding: const EdgeInsets.only(right: 8.0),
+                                   child: Text("${index}"
+                                     ,style: TextStyle(
+                                         color: Colors.white,
+                                         letterSpacing: 1,
+                                         fontSize: 15,
+                                         fontFamily: 'Comfortaa',
+                                         fontWeight: FontWeight.w400),
+                                   ),
+                                 ),
+                               ],)
+                                 :
+                                 Row(
+                                   mainAxisAlignment: MainAxisAlignment.end,
+                                   children: [
+                                     Padding(
+                                       padding: const EdgeInsets.only(right: 8.0),
+                                       child: Text("${index}"
+                                       ,style: TextStyle(
+                                               color: Color.fromRGBO(15, 117, 188, 1),
+                                               letterSpacing: 1,
+                                               fontSize: 15,
+                                               fontFamily: 'Comfortaa',
+                                               fontWeight: FontWeight.w400),
+                                       ),
+                                     ),
+                                 ],),
+
+                           ]
+                  ) ,
 
 
-                            child: Card(
 
-                              semanticContainer: false,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Image.asset('assets/images/today.jpeg'),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              elevation: 5,
-                              margin: EdgeInsets.all(10),
+                             shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
                             ),
+                             elevation: 2,
+                             margin: EdgeInsets.all(2),
                           ),
                         ),
-                        Divider()
-                      ],
-                    );
-                  } else {
-                    return Padding(
-                        padding: EdgeInsets.only(left: 10, top: 10, right: 10),
-                        child: sunnahLessonContainer(
-                            txt: 'Prayer', dateText: '$date  June  2021'));
-                  }
+                      ),
+                      Divider()
+                    ],
+                  );
                 }),
           )
         ],
@@ -140,7 +228,8 @@ class _SunnahLayoutState extends State<SunnahLayout> {
     );
   }
 
-  Widget sunnahLessonContainer({required String txt, required String dateText}) {
+  Widget sunnahLessonContainer(
+      {required String txt, required String dateText}) {
     return Column(
       children: [
         Container(

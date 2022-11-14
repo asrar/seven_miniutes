@@ -50,14 +50,14 @@ class _TimerWidgetState extends State<TimerWidget> {
 
     setState(() {
       final seconds = duration.inSeconds + addSeconds;
-      // if(seconds == 40 ){
-      //   //timer?.cancel();
-      //
-      //
-      //
-      //   Overseer.playtime = 40;
-      //   print("-- time is up now 40 . jazakAllah");
-      // }
+      if(seconds == 420 ){
+        timer?.cancel();
+
+
+
+        Overseer.playtime = 420;
+        print("-- time is up now 40 . jazakAllah");
+      }
       print("jump to list from timer ${Overseer.scrollJumpToList}");
       print("Index to list from timer ${Overseer.dataIndexList}");
       if(Overseer.scrollJumpToList.contains(seconds)) {
@@ -68,14 +68,14 @@ class _TimerWidgetState extends State<TimerWidget> {
       }
       if(seconds == 420 ){
         Overseer.jumpToIndex = 1000;
-           timer?.cancel();
-   //     Overseer.playtime = 20;
-   //     Overseer.playeraudio!.stopPlayer();
+           timer.cancel();
+        Overseer.playtime = 420;
+        Overseer.playeraudio!.stopPlayer();
         print("-- time is up now at 20 jazakAllah");
         widget.refreshParent();
       }
       if (seconds < 0) {
-        timer?.cancel();
+        timer.cancel();
       } else {
         duration = Duration(seconds: seconds);
       }
@@ -101,7 +101,7 @@ class _TimerWidgetState extends State<TimerWidget> {
     //  reset();
     }
 
-    setState(() => timer?.cancel());
+    setState(() => timer.cancel());
   }
 
   @override

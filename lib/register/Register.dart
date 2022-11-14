@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:seven_minutes/AppLayer/Overseer.dart';
 import 'package:seven_minutes/AppLayer/Provider.dart';
 import 'package:seven_minutes/login/Login.dart';
@@ -9,6 +10,7 @@ import 'package:seven_minutes/register/RegisteredAsAMemberModel.dart';
 import 'package:seven_minutes/register/RegisteredGroupLeaderModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../JoinGroup/JoinGroupManager.dart';
 import '../Widgets/CustomButton.dart';
 import '../Widgets/TextFieldWidget.dart';
 import 'RegisterAsAmemberManager.dart';
@@ -126,6 +128,8 @@ class _RegisterState extends State<Register> {
                                     StreamBuilder<String>(
                                       stream: manager.firstName$,
                                       builder: (context, snapshot) {
+                                        print("---error Text is ${snapshot.hasError}");
+                                        print("---data Text is ${snapshot.data}");
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
@@ -229,7 +233,7 @@ class _RegisterState extends State<Register> {
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.red),
+                                                borderSide: BorderSide(width: 40, color: Colors.green),
                                                 borderRadius: BorderRadius.circular(15),
                                               ),errorText: snapshot.error == null
                                                 ? ""
@@ -258,6 +262,7 @@ class _RegisterState extends State<Register> {
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                                           title: TextField(
                                             onChanged: (value) {
+                                              print("value --- ${value}");
                                               manager.inPhoneNumber.add(value);
                                             },
                                             textInputAction: TextInputAction.next,
@@ -272,7 +277,7 @@ class _RegisterState extends State<Register> {
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.red),
+                                                borderSide: BorderSide(width: 40, color: Colors.green),
                                                 borderRadius: BorderRadius.circular(15),
                                               ),errorText: snapshot.error == null
                                                 ? ""
@@ -347,7 +352,7 @@ class _RegisterState extends State<Register> {
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.red),
+                                                borderSide: BorderSide(width: 40, color: Colors.green),
                                                 borderRadius: BorderRadius.circular(15),
                                               ),errorText: snapshot.error == null
                                                 ? ""
@@ -389,7 +394,7 @@ class _RegisterState extends State<Register> {
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.red),
+                                                borderSide: BorderSide(width: 40, color: Colors.green),
                                                 borderRadius: BorderRadius.circular(15),
                                               ),errorText: snapshot.error == null
                                                 ? ""
@@ -417,7 +422,7 @@ class _RegisterState extends State<Register> {
                                       child: Row(
                                         children: [
                                           Text(
-                                            'Are you a Group Member?',
+                                            'Create or Join A Group ?',
                                             maxLines: 3,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -451,41 +456,7 @@ class _RegisterState extends State<Register> {
                                     SizedBox(
                                       height: 2,
                                     ),
-                                    leaderCheck ?
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5.0),
-                                      child: Row(
 
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Group Leader',
-                                            maxLines: 3,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Comfortaa',
-                                              // fontWeight: FontWeight.w900,
-                                              fontSize: 17.0,
-                                              letterSpacing: 0.4,
-                                              color: Color(0xff95b319),
-                                            ),
-                                          ),
-                                          SizedBox(width: 10,),
-                                          Switch(
-                                            value: isGroupLeader,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                this.isGroupLeader = value;
-                                                print(" is leader ${this.isGroupLeader}");
-                                              });
-                                            },
-                                            activeTrackColor: Colors.lightGreenAccent,
-                                            activeColor: Colors.green,
-                                          ),
-
-                                        ],
-                                      ),
-                                    ) : SizedBox(height: 1,),
                                     leaderCheck ?
                                     this.isGroupLeader ?
                                     StreamBuilder<String>(
@@ -510,7 +481,7 @@ class _RegisterState extends State<Register> {
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.red),
+                                                borderSide: BorderSide(width: 40, color: Colors.green),
                                                 borderRadius: BorderRadius.circular(15),
                                               ),errorText: snapshot.error == null
                                                 ? ""
@@ -530,7 +501,29 @@ class _RegisterState extends State<Register> {
                                         //);
                                       },
                                     ):SizedBox(height: 1,) : SizedBox(height: 1,),
-                                    leaderCheck ?// group name
+                                    this.isGroupLeader == false  && leaderCheck ?
+                                    Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: Row(
+
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Join A Group ',
+                                                maxLines: 3,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Comfortaa',
+                                                  // fontWeight: FontWeight.w900,
+                                                  fontSize: 17.0,
+                                                  letterSpacing: 0.4,
+                                                  color: Color(0xff95b319),
+                                                ),
+                                              ),
+                                              SizedBox(width: 10,),
+                                            ]))
+                                        : SizedBox(height: 10,) ,
+                                    leaderCheck ?
                                     StreamBuilder<String>(
                                       stream: manager.groupId$,
                                       builder: (context, snapshot) {
@@ -547,13 +540,13 @@ class _RegisterState extends State<Register> {
                                             cursorColor: Colors.green,
                                             keyboardType: TextInputType.emailAddress,
                                             decoration: InputDecoration(
-                                              labelText: 'New Group ID',
+                                              labelText: 'Group Unique ID',
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(width: 3, color: Colors.blue),
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.red),
+                                                borderSide: BorderSide(width: 40, color: Colors.green),
                                                 borderRadius: BorderRadius.circular(15),
                                               ),errorText: snapshot.error == null
                                                 ? ""
@@ -573,12 +566,56 @@ class _RegisterState extends State<Register> {
                                         //);
                                       },
                                     ): SizedBox(height: 1,),// confirm password
-                                     // gender
+                                    SizedBox(height: 3,),
+                                    leaderCheck ?
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5.0),
+                                      child: Row(
+
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Create New Group',
+                                            maxLines: 3,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontFamily: 'Comfortaa',
+                                              // fontWeight: FontWeight.w900,
+                                              fontSize: 17.0,
+                                              letterSpacing: 0.4,
+                                              color: Color(0xff95b319),
+                                            ),
+                                          ),
+                                          SizedBox(width: 10,),
+                                          Switch(
+                                            value: isGroupLeader,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                print("-- group learder value ${value}");
+                                                this.isGroupLeader = value;
+                                                print(" is leader ${this.isGroupLeader}");
+                                              });
+                                            },
+                                            activeTrackColor: Colors.lightGreenAccent,
+                                            activeColor: Colors.green,
+                                          ),
+
+                                        ],
+                                      ),
+                                    ) : SizedBox(height: 1,),
                                     StreamBuilder<Object>(
                                         stream: manager.isFormValid$,
                                         builder: (context, snapshot) {
+
+
+
                                           return InkWell(
                                             onTap: () {
+                                              print("------ real validation pass ${manager.email$.last}");
+                                              print("-----Snapshot data is ${snapshot.hasData}");
+                                              print("-----Snapshot error is ${snapshot.hasError}");
+                                              print("error text is ${snapshot.error.toString()}");
+
                                               Get.snackbar(
                                                 "Submitting",
                                                 "Verifying User Details",
@@ -589,11 +626,20 @@ class _RegisterState extends State<Register> {
                                                     Colors.orangeAccent,
                                                 duration: Duration(seconds: 1),
                                               );
+                                              print("-----Snapshot data is ${snapshot.hasData}");
+                                              print("-----Snapshot error is ${snapshot.hasError}");
+                                              print("error text is ${snapshot.error.toString()}");
+
+
                                               if (snapshot.hasData) {
                                                 manager.isFormSubmit$
                                                     .listen((event) async {
+                                                      print("--- group  -- ${Overseer
+                                                          .is_GroupLeader_Registered}  ---user --- ${Overseer
+                                                          .is_user_Registered} ");
                                                   if (Overseer
-                                                      .is_GroupLeader_Registered) {
+                                                      .is_GroupLeader_Registered || Overseer
+                                                      .is_user_Registered) {
                                                     SharedPreferences prefs;
                                                     prefs =
                                                         await SharedPreferences
@@ -602,7 +648,7 @@ class _RegisterState extends State<Register> {
                                                     // Overseer.logged_in_user_id = prefs.getInt("User_Id");
                                                     Get.snackbar(
                                                       "Congratulation",
-                                                      "Successfully LogIn with fitness app",
+                                                      "Successfully LogIn with 7 Min App",
                                                       dismissDirection:
                                                           DismissDirection
                                                               .horizontal,
@@ -614,7 +660,28 @@ class _RegisterState extends State<Register> {
                                                     );
                                                     // final SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
                                                     // _sharedPreferences.setInt('userId', Overseer.userId);
-                                                    Get.offAll(Login());
+                                                    if(Overseer.joinGroupRequest) {
+                                                      JoinGroupManager manager = Provider.of(context).fetch(JoinGroupManager);
+                                                      manager.isFormSubmit$.listen((event) {
+                                                        Get.snackbar(
+                                                          "Joining Group",
+                                                          "Group Joining Invitation Sent to Admin",
+                                                          dismissDirection:
+                                                          DismissDirection
+                                                              .horizontal,
+                                                          isDismissible: true,
+                                                          backgroundColor:
+                                                          Colors.orangeAccent,
+                                                          duration:
+                                                          Duration(seconds: 1),
+                                                        );
+                                                      });
+                                                      Get.offAll(Login());
+                                                    }else{
+                                                      Get.offAll(Login());
+                                                    }
+
+
                                                   } else if (snapshot
                                                       .hasError) {
                                                     Get.snackbar(

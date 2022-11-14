@@ -60,25 +60,45 @@ class RegisterAsAMemberManager with Myvalidation {
 // Todo
   Stream<bool> get isFormSubmit$ async* {
 
-    print("inside isUserAUTH  group Id is ${_groupId.value}");
+        print("YES I AM HERE TO INVESTIGATE ${_email.stream.last}");
+        print("YES I AM HERE TO INVESTIGATE 2 ${_email.valueOrNull}");
+
+
+        print("---- email is ${_email.value}");
+        print("${_email.value}  --- ${_password.value}  --- ${_phoneNumber.value}  --- ${_firstName.value}  --- ${_lastName.value}  --- ${_email.value}  --- ${_email.value}  --- "
+            "${_email.value}  --- ");
+  //  print("inside isUserAUTH  group Id is ${_groupId.value}");
     if (_email.value != null && _password.value != null  && _phoneNumber.value != null && _firstName.value != null && _lastName.value != null) {
       //UserProfileManager manager_user = new UserProfileManager();
       String query = "";
-      if(_grouName.hasValue || _groupId.hasValue) {
+      if(_grouName.hasValue) {
         print("--- query as member");
         query =
         "email=${_email.value}&password=${_password
             .value}&first_name=${_firstName.value}&last_name=${_lastName.value}"
-            "&gender=${Overseer.gender}&phone=${_phoneNumber
-            .value}&group_name=test&group_unique_id=${_groupId
+            "&gender=${_gender}&phone=${_phoneNumber
+            .value}&group_name=${_grouName
+            .value}&group_unique_id=${_groupId
             .value}&gender=${_gender.value}";
       }else {
-        print("--- query as user");
-         query =
-            "email=${_email.value}&password=${_password
-            .value}&first_name=${_firstName.value}&last_name=${_lastName.value}"
-            "&gender=${Overseer.gender}&phone=${_phoneNumber
-            .value}";
+        if(_groupId.hasValue){
+          print("--- query as joining memeber");
+          Overseer.joinGroupRequestId = _groupId.value;
+              query =
+          "email=${_email.value}&password=${_password
+              .value}&first_name=${_firstName.value}&last_name=${_lastName.value}&group_unique_id=${_groupId
+              .value}"
+              "&gender=${_gender}&phone=${_phoneNumber
+              .value}";
+        }else{
+          print("--- query as user");
+          query =
+          "email=${_email.value}&password=${_password
+              .value}&first_name=${_firstName.value}&last_name=${_lastName.value}"
+              "&gender=${_gender}&phone=${_phoneNumber
+              .value}";
+        }
+
       }
       // && Overseer.gender != null
 

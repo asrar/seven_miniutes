@@ -41,7 +41,7 @@ class _LoginState extends State<Login> {
             child: ListView(
               children: [
                 SizedBox(
-                  height: 60,
+                  height: 40,
                 ),
                 // Container(
                 //    width: 200,
@@ -61,20 +61,20 @@ class _LoginState extends State<Login> {
                     width: 30,
                     height: 40,
                     child: Text(
-                      'Please Login to 7 Min world',
+                      '7Minutes App',
 
                       maxLines: 3,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Comfortaa',
                         // fontWeight: FontWeight.w900,
-                        fontSize: 17.0,
+                        fontSize: 25.0,
                         letterSpacing: 0.4,
-                        color: Color(0xff95b319),
+                        color: Colors.lightBlue,
                       ),
                     )),
                 SizedBox(
-                  height: 1,
+                  height: 30,
                 ),
 
                 SizedBox(
@@ -87,25 +87,44 @@ class _LoginState extends State<Login> {
                     return ListTile(
                       contentPadding:
                       EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                      title: TextField(
-                        onChanged: (value) {
-                          print("form value is $value");
-                          manager.inEmail.add(value);
-                        },
-                        textInputAction: TextInputAction.next,
-                        style: TextStyle(color: Colors.black),
-                        cursorColor: Colors.black,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: 'Enter User ID',
-                          hintStyle: TextStyle(color: Colors.yellow),
-                          contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                          errorText: snapshot.error == null
-                              ? ""
-                              : snapshot.error.toString(), //snapshot.error!
-                        ),
-                      ),
+                    title: TextFieldWidget(
+                      changedValue:(value){
+                        manager.inEmail.add(value);
+                      },
+                      inputType: TextInputType.emailAddress,
+                      email:"Email or Username" ,
+                      password: false,
+                      errorText: snapshot.error == null
+                          ? ""
+                          : snapshot.error.toString(),
+                      label: "Username",
+
+                    ),
+                      //   title: TextField(
+                    //     onChanged: (value) {
+                    //       print("form value is $value");
+                    //       manager.inEmail.add(value);
+                    //     },
+                    //     textInputAction: TextInputAction.next,
+                    //     style: TextStyle(color: Colors.black),
+                    //     cursorColor: Colors.black,
+                    //     keyboardType: TextInputType.emailAddress,
+                    //     decoration: InputDecoration(
+                    //       errorText: snapshot.error == null
+                    //               ? ""
+                    //               : snapshot.error.toString(),
+                    //       border: OutlineInputBorder()
+                    // ),
+                    //     // decoration: InputDecoration(
+                    //     //   labelText: 'Enter User ID',
+                    //     //   hintStyle: TextStyle(color: Colors.yellow),
+                    //     //   contentPadding:
+                    //     //   EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    //     //   errorText: snapshot.error == null
+                    //     //       ? ""
+                    //     //       : snapshot.error.toString(), //snapshot.error!
+                    //     // ),
+                    //   ),
                     );
                   },
                 ),
@@ -115,29 +134,50 @@ class _LoginState extends State<Login> {
                     return ListTile(
                       contentPadding:
                       EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                      title: TextField(
-                        onChanged: (value) {
-                          manager.inPassword.add(value);
+                      title:TextFieldWidget(
+                          changedValue:(value){
+                            manager.inPassword.add(value);
                         },
-                        textInputAction: TextInputAction.next,
-                        obscureText: true,
-                        style: TextStyle(color: Colors.green),
-                        cursorColor: Colors.green,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 3, color: Colors.blue),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 40, color: Colors.red),
-                            borderRadius: BorderRadius.circular(15),
-                          ),errorText: snapshot.error == null
-                            ? ""
-                            : snapshot.error.toString(),)
-                        ,
+                        inputType: TextInputType.text,
+                        email:"Enter Password" ,
+                        password: true,
+                        errorText: snapshot.error == null
+                              ? ""
+                              : snapshot.error.toString(),
+                        label: "Password",
+
                       ),
+
+
+                      // TextField(
+                      //   onChanged: (value) {
+                      //     manager.inPassword.add(value);
+                      //   },
+                      //   textInputAction: TextInputAction.next,
+                      //   obscureText: true,
+                      //   style: TextStyle(color: Colors.green),
+                      //   cursorColor: Colors.green,
+                      //   keyboardType: TextInputType.emailAddress,
+                      //     decoration: InputDecoration(
+                      //         errorText: snapshot.error == null
+                      //             ? ""
+                      //             : snapshot.error.toString(),
+                      //         border: OutlineInputBorder()
+                      //     )
+                      //   // decoration: InputDecoration(
+                      //   //   labelText: 'Password',
+                      //   //   enabledBorder: OutlineInputBorder(
+                      //   //     borderSide: BorderSide(width: 3, color: Colors.blue),
+                      //   //     borderRadius: BorderRadius.circular(15),
+                      //   //   ),
+                      //   //   focusedBorder: OutlineInputBorder(
+                      //   //     borderSide: BorderSide(width: 40, color: Colors.red),
+                      //   //     borderRadius: BorderRadius.circular(15),
+                      //   //   ),errorText: snapshot.error == null
+                      //   //     ? ""
+                      //   //     : snapshot.error.toString(),)
+                      //
+                      // ),
                       // decoration: InputDecoration(
                       //   labelText: 'Password ',
                       //   hintStyle: TextStyle(color: Colors.brown),
@@ -206,86 +246,86 @@ class _LoginState extends State<Login> {
                         // fontWeight: FontWeight.w900,
                         fontSize: 13.0,
                         letterSpacing: 0.4,
-                        color: Colors.red,
+                        color: Colors.blue,
                       ),
                     )),
                 SizedBox(
                   height: 2,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left:40.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Are you a Group Member?',
-                        maxLines: 3,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Comfortaa',
-                          // fontWeight: FontWeight.w900,
-                          fontSize: 17.0,
-                          letterSpacing: 0.4,
-                          color: Color(0xff95b319),
-                        ),
-                      ),
-                      SizedBox(width: 10,),
-                      Checkbox(
-                        checkColor: Colors.white,
-                        activeColor: Colors.green,
-                        value: isGroupPerson,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            print("--- the real check value is ${value}");
-                            this.isGroupPerson = value!;
-                            if(this.isGroupPerson){
-                              leaderCheck = true;
-                            }else{
-                              leaderCheck = false;
-                            }
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 2,
-                ),
-                leaderCheck ?
-                Padding(
-                  padding: const EdgeInsets.only(left: 38.0),
-                  child: Row(
-
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Group Leader',
-                        maxLines: 3,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Comfortaa',
-                          // fontWeight: FontWeight.w900,
-                          fontSize: 17.0,
-                          letterSpacing: 0.4,
-                          color: Color(0xff95b319),
-                        ),
-                      ),
-                      SizedBox(width: 10,),
-                      Switch(
-                        value: isGroupLeader,
-                        onChanged: (value) {
-                          setState(() {
-                            this.isGroupLeader = value;
-                            print(" is leader ${this.isGroupLeader}");
-                          });
-                        },
-                        activeTrackColor: Colors.lightGreenAccent,
-                        activeColor: Colors.green,
-                      ),
-
-                    ],
-                  ),
-                ) : SizedBox(height: 1,),
+                // Padding(
+                //   padding: const EdgeInsets.only(left:40.0),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         'Are you a Group Member?',
+                //         maxLines: 3,
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontFamily: 'Comfortaa',
+                //           // fontWeight: FontWeight.w900,
+                //           fontSize: 17.0,
+                //           letterSpacing: 0.4,
+                //           color: Color(0xff95b319),
+                //         ),
+                //       ),
+                //       SizedBox(width: 10,),
+                //       Checkbox(
+                //         checkColor: Colors.white,
+                //         activeColor: Colors.green,
+                //         value: isGroupPerson,
+                //         onChanged: (bool? value) {
+                //           setState(() {
+                //             print("--- the real check value is ${value}");
+                //             this.isGroupPerson = value!;
+                //             if(this.isGroupPerson){
+                //               leaderCheck = true;
+                //             }else{
+                //               leaderCheck = false;
+                //             }
+                //           });
+                //         },
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 2,
+                // ),
+                // leaderCheck ?
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 38.0),
+                //   child: Row(
+                //
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       Text(
+                //         'Group Leader',
+                //         maxLines: 3,
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontFamily: 'Comfortaa',
+                //           // fontWeight: FontWeight.w900,
+                //           fontSize: 17.0,
+                //           letterSpacing: 0.4,
+                //           color: Color(0xff95b319),
+                //         ),
+                //       ),
+                //       SizedBox(width: 10,),
+                //       Switch(
+                //         value: isGroupLeader,
+                //         onChanged: (value) {
+                //           setState(() {
+                //             this.isGroupLeader = value;
+                //             print(" is leader ${this.isGroupLeader}");
+                //           });
+                //         },
+                //         activeTrackColor: Colors.lightGreenAccent,
+                //         activeColor: Colors.green,
+                //       ),
+                //
+                //     ],
+                //   ),
+                // ) : SizedBox(height: 1,),
 
                         SizedBox(
                           height: 30,

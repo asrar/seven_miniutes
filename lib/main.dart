@@ -5,8 +5,7 @@ import 'package:seven_minutes/AppLayer/Provider.dart';
 import 'package:seven_minutes/AppLayer/Overseer.dart';
 import 'package:seven_minutes/SettingScreen/settings.dart';
 import 'package:seven_minutes/SplashScreen/splach_screen.dart';
-import 'package:seven_minutes/sitem/Sunnah_Layout.dart';
-// From Naseer1
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +13,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  String messageTitle = "Empty";
+  String notificationAlert = "alert";
+
+ // FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   @override
   Widget build(BuildContext context) {
     return Provider(

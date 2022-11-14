@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:seven_minutes/AppLayer/Overseer.dart';
+import 'package:seven_minutes/login/Login.dart';
 
 import 'package:seven_minutes/oneDayOneRaku/admin_project_screen.dart';
 import 'package:seven_minutes/oneDayOneRaku/logsview.dart';
 import 'package:seven_minutes/oneDayOneRaku/tools_stock.dart';
 import 'package:seven_minutes/oneDayOneRaku/material_stock.dart';
+import 'package:seven_minutes/qitem/Quran.dart';
+import 'package:seven_minutes/qitem/QuranRaku.dart';
 //import 'package:flutter/tool';
 
 
@@ -41,10 +44,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             actions: [
               IconButton(
                 onPressed: () {
-                //  Get.to(() => SignIn());
+                  Get.to(() => Login());
 
                 },
-                icon: const Icon(Icons.circle_notifications_outlined,color: Colors.deepOrange,),
+                icon: const Icon(Icons.exit_to_app_outlined,color: Colors.deepOrange,),
               ),
             ],
             title: const Text("Seven Minutes" ,style: TextStyle(fontSize: 18,
@@ -138,13 +141,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
                   child: TabBarView(children: [
                     // 1st Tabbar View
-                    LogsView(title: "Project Logs",)
+                    QuranRaku()
                     ,
                     // 2nd tabbar view view
-                    AdminMaterialsStock(title: "Materials Stock"),
+                    QuranRaku(),
 
                     //3rd Tabbar View
-                    AdminToolsStock(title: "Tools Stock"),
+                    QuranRaku(),
                   ]),
                 )
               ],

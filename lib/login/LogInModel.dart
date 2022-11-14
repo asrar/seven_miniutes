@@ -84,7 +84,9 @@ class LoginUser {
     deletedAt = null;
     bio = null;
     gender = json['gender'];
-    groupUniqueId = json['group_id'];
+    if(json['group_id']!=null) {
+      groupUniqueId = json['group_id'];
+    }
     dob = null;
     pic = null;
     country = null;

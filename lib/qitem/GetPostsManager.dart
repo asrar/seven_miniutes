@@ -24,8 +24,10 @@ class GetPostsManager {
   Stream<List<GetPosts>> get productList async* {
 
     if(Overseer.isLoadingDone) {
+      print("-- get data in browse");
       yield await GetPostsService.browse();
     }else{
+      print("-- get data in active quran post");
       yield await Overseer.quranAactivePostList;
     }
   }

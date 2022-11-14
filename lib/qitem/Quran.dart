@@ -242,12 +242,12 @@ class _QuranState extends State<Quran> {
             alignment: Alignment.centerLeft,
            // alignment: Alignment.bottomRight,
             children: <Widget>[
-              Overseer.playtime != 20 ?
+              Overseer.playtime != 420 ?
               Align(
                 alignment: Alignment.bottomLeft,
                 child: buildPlayer(),
               ):SizedBox(width: 1,),
-              Overseer.playtime == 20 ?
+              Overseer.playtime == 420 ?
               Align(
                 alignment: Alignment.bottomCenter,
                 child:  Container(
@@ -282,7 +282,7 @@ class _QuranState extends State<Quran> {
                 alignment: Alignment.bottomCenter,
                 child: Text("JazakAllah for listening"),
               ),
-              Overseer.playtime != 20 ?
+              Overseer.playtime != 420 ?
               Align(
                 alignment: Alignment.bottomRight,
                 child: buildPlay(),
@@ -307,8 +307,8 @@ void getThanks(){
     final isPlaying = player.isPlaying;
     final Function() notifyParent;
     print(" real playing status at start ${player.isPlaying}");
-    final icon = isPlaying && Overseer.playtime != 40 ? Icons.pause : Icons.play_arrow;
-    final text = isPlaying && Overseer.playtime != 40 ? 'Pause' : 'Play';
+    final icon = isPlaying && Overseer.playtime != 420 ? Icons.pause : Icons.play_arrow;
+    final text = isPlaying && Overseer.playtime != 420 ? 'Pause' : 'Play';
 
 
 
@@ -381,7 +381,7 @@ void getThanks(){
 
       print("duration is  ---------------------- ${duration.inMinutes} ");
       print("position is --------------- ${ position.inMinutes}");
-      if(duration.inMinutes == 2 ) {
+      if(duration.inMinutes == 7 ) {
         setState(() {
        print("real pringing is done now");
         });
@@ -441,7 +441,11 @@ void getThanks(){
       itemScrollController.jumpTo(index: Overseer.jumpToIndex);
     }
    else {
-     setState(() {});
+     print("setting state only for activity Log  at ${Overseer.playtime}");
+
+     setState(() {
+       print("called");
+     });
    }
   }
 

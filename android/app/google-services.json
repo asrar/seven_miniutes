@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "615122169514",
+    "project_id": "minapp-213a0",
+    "storage_bucket": "minapp-213a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615122169514:android:f95700216197010aa8ead3",
+        "android_client_info": {
+          "package_name": "com.example.seven_miniutes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615122169514-tccsd263rno39ovkehhu5r4loo4p0t4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBUKN02snUlqADRFexLTkr09m_hYf6a7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615122169514-tccsd263rno39ovkehhu5r4loo4p0t4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

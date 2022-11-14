@@ -24,14 +24,21 @@ class JoinGroupManager with Myvalidation {
   Stream<bool> get isFormSubmit$ async* {
     CombineLatestStream(
         [groupId$], (values) => true);
-    print("inside isUserAUTH  1 ");
+    print("inside isUserAUTH  1 >> ${_grouId.hasValue}");
+    if(_grouId.hasValue) {
     if (_grouId.value != null) {
       //UserProfileManager manager_user = new UserProfileManager();
       String query = "";
-
-
       yield await JoinGroupService.browse(_grouId.value);
     }
+    }else{
+      print("JOINING request from register form");
+      if(Overseer.joinGroupRequest) {
+        Overseer.joinGroupRequest = false;
+        yield await JoinGroupService.browse(Overseer.joinGroupRequestId);
+      }
+    }
+
   }
 
   Stream<bool> get isFormValid$ => CombineLatestStream(

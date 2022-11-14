@@ -96,13 +96,13 @@ class _RemindState extends State<Remind> {
               width: 140,
               height: 40,
               padding: const EdgeInsets.all(8),
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    side: BorderSide(color: Colors.green.withOpacity(0.5))),
-                textColor: Colors.white,
-                color: Colors.green[500],
-                child: Text('Notifivation'),
+              child: TextButton(
+                // shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(10.0),
+                //     side: BorderSide(color: Colors.green.withOpacity(0.5))),
+                // textColor: Colors.white,
+                // color: Colors.green[500],
+                child: Text('Notification'),
                 onPressed: () {},
               ),
             )

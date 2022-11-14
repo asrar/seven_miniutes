@@ -10,10 +10,11 @@ class Observer<T> extends StatelessWidget {
   final Function onSuccess;
 
   Observer(
-      {required this.onError,
-      required this.onSuccess,
-      required this.stream,
-      required this.onWaiting});
+      {
+        required this.onError,
+        required this.onSuccess,
+        required this.stream,
+        required this.onWaiting});
 
   Function _defaultOnWaiting =
       (context) => Center(child: CircularProgressIndicator());

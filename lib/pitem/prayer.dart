@@ -44,11 +44,13 @@ class _PrayerState extends State<Prayer> {
       children: [
         Text('Prayer'),
         SizedBox(height: 20),
-        FlatButton(
-          shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.green),
-              borderRadius: new BorderRadius.circular(10.0)),
-          color: Colors.transparent,
+        TextButton(
+
+          // shape: RoundedRectangleBorder(
+          //     side: BorderSide(color: Colors.green),
+          //     borderRadius: new BorderRadius.circular(10.0)),
+          //
+          // color: Colors.transparent,
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) => PrayerLayout()));
           },

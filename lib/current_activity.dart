@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:seven_minutes/groupUsers/GroupUsersManager.dart';
 import 'package:seven_minutes/groupUsers/UsersGroupModel.dart';
 
@@ -12,6 +13,8 @@ class CurrentActivity extends StatefulWidget {
 }
 
 class _CurrentActivityState extends State<CurrentActivity> {
+
+  int selectedIndex = 0 ;
   @override
   Widget build(BuildContext context) {
     GroupUsersManager manager = Provider.of(context).fetch(GroupUsersManager);
@@ -43,13 +46,57 @@ class _CurrentActivityState extends State<CurrentActivity> {
                   UsersGroupModel _post = _productList[0];
                   print("printing from list tile for lengt ${_post1.Data[0].UserGroups[0].Members[index].lastName}");
                   print("--activities with $index  ${_post.Data[index].activities.day0}");
-                  print("done -- data length ${_post.Data.length}");
+                  print("members length ${_post.Data[0].UserGroups[0].Members.length}");
 
 
                   return ListTile(
                       leading: CircleAvatar(backgroundColor: _post.Data[index].activities.day0 == "1"? Colors.green :Colors.red),
-                      title: Text("${_post.Data[index].UserGroups[0].Members[index].firstName} ${_post.Data[index].UserGroups[0].Members[index].lastName}"),
-                      subtitle: Text("Please Remind him"),
+                      title: Text("${_post.Data[0].UserGroups[0].Members[index].firstName} ${_post.Data[0].UserGroups[0].Members[index].lastName}"),
+                      subtitle: _post.Data[0].UserGroups[0].Members[index].enable.contains("0") ? Row(
+                        children: [
+                          Container(
+                            child: TextButton(
+                              child: Text(
+                                "Accept"
+                              ),
+                              onPressed: (){
+                                selectedIndex = index;
+                                manager.inReqId.add(_post.Data[0].UserGroups[0].Members[selectedIndex].id);
+                                manager.requestAccepted$.listen((value) {
+                                  print('Value from Listn Stream: $value');
+                                  if(value == true) {
+                                    print("Thanks to JOIN .. AKS");
+                                    Get.snackbar(
+                                      "Congratulation",
+                                      "Member Added to this Group",
+                                      dismissDirection:
+                                      DismissDirection.horizontal,
+                                      isDismissible: true,
+                                      backgroundColor: Colors.orangeAccent,
+                                      duration: Duration(seconds: 1),
+                                    );
+                                    setState((){
+                                      print("refreshing");
+                                    });
+                                  }
+                                });
+                                print("Request Accepted");
+                              },
+                            ),
+                          ),
+                          Container(
+                            child: TextButton(
+                              child: Text(
+                                  "Reject"
+                              ),
+                              onPressed: (){
+                                print("Request Rejected");
+
+                              },
+                            ),
+                          ),
+                        ],
+                      ):Text("Member"),
                       );
                 });
           },
