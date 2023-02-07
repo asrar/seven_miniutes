@@ -19,7 +19,7 @@ class _QuranLayoutState extends State<QuranLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:    Text(
+        title: Text(
           'Quran',
           style: TextStyle(
               color: Colors.white,
@@ -28,35 +28,33 @@ class _QuranLayoutState extends State<QuranLayout> {
               fontFamily: 'Comfortaa',
               fontWeight: FontWeight.w900),
         ),
-      actions: [
-        InkWell(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TabbarLayout()));
-          },
-          child: Container(
-            child: Icon(
-              Icons.notification_important,
-              color: Colors.white,
-              size: 30,
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TabbarLayout()));
+            },
+            child: Container(
+              child: Icon(
+                Icons.notification_important,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
           ),
-        ),
-      ],),
+        ],
+      ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-
             UserAccountsDrawerHeader(
-              accountName: Text("Asrar"),
-              accountEmail: Text("aks@7minutes.com"),
+              accountName: Text(Overseer.userName),
+              accountEmail: Text(Overseer.userEmail),
               currentAccountPicture: CircleAvatar(
                 backgroundColor:
-                Theme.of(context).platform == TargetPlatform.iOS
-                    ? Colors.blue
-                    : Colors.white,
+                    Theme.of(context).platform == TargetPlatform.iOS
+                        ? Colors.blue
+                        : Colors.white,
                 child: Text(
                   "A",
                   style: TextStyle(fontSize: 40.0),
@@ -64,74 +62,144 @@ class _QuranLayoutState extends State<QuranLayout> {
               ),
             ),
             ListTile(
-              title: Text("Ttem 1"),
+              title: InkWell(child: Text("Dua Remember"),
+              onTap: (){
+
+              },),
               trailing: Icon(Icons.arrow_forward),
             ),
             ListTile(
-              title: Text("Item 2"),
+              title: Text("7 Value Minutes"),
               trailing: Icon(Icons.arrow_forward),
             ),
-            SizedBox(height: context.height *.42,),
-            InkWell(
+            ListTile(
+              title: InkWell(child: Text("40 Hadith"),
+                onTap: (){
+
+                },
+              ),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            ListTile(
+              title: InkWell(child: Text("7Min Mode"),
               onTap: (){
+
+              },),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            SizedBox(
+              height: context.height * .16,
+            ),
+
+            InkWell(
+              onTap: () {
                 Get.offAll(Login());
               },
               child: ListTile(
                 title: Text("Sign Out"),
-
               ),
             ),
-
           ],
         ),
       ),
       backgroundColor: Colors.white,
       body: Column(
         children: [
-
           Expanded(
             child: ListView.builder(
                 itemCount: 30,
                 itemBuilder: (context, index) {
                   int date = index + 1;
-                  if (index == selectIndex) {
-                    return Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Overseer.playtime = 0;
-                            Overseer.isLoadingDone = true;
+                  int day = DateTime.now().day;
+                  return Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Overseer.playtime = 0;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Quran()));
+                        },
+                        child: Container(
+                          color: Color.fromRGBO(15, 117, 188, 1),
+                          height: day != index ? 30 : 160,
+                          width: day != index ? 350 : 350,
+                          child: Card(
+                            color: day != index
+                                ? Color.fromRGBO(15, 117, 188, 1)
+                                : Colors.white,
+                            semanticContainer: false,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  day != index
+                                      ? SizedBox(
+                                          height: 2,
+                                        )
+                                      : Image.asset(
+                                          'assets/images/q-index-${index}.png',
+                                    height: 150,
+                                    width: 250,
+                                    fit: BoxFit.fill,
 
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Quran()));
-                          },
-                          child: Container(
-                            color: Colors.blue.shade200,
-                            height: 200,
-                            width: 350,
-                            child: Card(
-                              semanticContainer: false,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Image.asset('assets/images/today.jpeg'),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              elevation: 5,
-                              margin: EdgeInsets.all(10),
-                            ),
+                                  ),
+                                  day != index
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0),
+                                              child: Text(
+                                                "${index}",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    letterSpacing: 1,
+                                                    fontSize: 15,
+                                                    fontFamily: 'Comfortaa',
+                                                    fontWeight:
+                                                        FontWeight.w900),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0),
+                                              child: Text(
+                                                "${index}",
+                                                style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        15, 117, 188, 1),
+                                                    letterSpacing: 1,
+                                                    fontSize: 15,
+                                                    fontFamily: 'Comfortaa',
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                ]),
+
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(2.0),
+                            // ),
+                            elevation: 2,
+                            // margin: EdgeInsets.all(2),
                           ),
                         ),
-                        Divider()
-                      ],
-                    );
-                  } else {
-                    return Padding(
-                        padding: EdgeInsets.only(left: 10, top: 10, right: 10),
-                        child: quranLessonContainer(
-                            txt: 'Quran', dateText: '$date  June  2021'));
-                  }
+                      ),
+                      Divider()
+                    ],
+                  );
                 }),
           )
         ],
@@ -168,5 +236,4 @@ class _QuranLayoutState extends State<QuranLayout> {
       ],
     );
   }
-
 }

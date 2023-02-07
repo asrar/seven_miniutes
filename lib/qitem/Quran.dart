@@ -68,6 +68,8 @@ class _QuranState extends State<Quran> {
   @override
   Widget build(BuildContext context) {
     GetPostsManager manager = Provider.of(context).fetch(GetPostsManager);
+    Overseer.isLoadingDone = true;
+    Overseer.iS_oneRakuScreen = false;
    // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     Overseer.cat_id = "2";
 
@@ -180,12 +182,16 @@ class _QuranState extends State<Quran> {
               )),
 
           // Audio(),
+
+          //// TODO: copy start
           Expanded(
             child: Observer<List<GetPosts>>(
               stream: manager.productList,
               onSuccess: (context, data) {
                 // snapshot.data ?? 0;
                 Overseer.quranAactivePostList = data;
+
+
                 List<GetPosts> _productList = data;
                 print("printing from list tile");
                 GetPosts _post1 = _productList[0];
@@ -236,6 +242,8 @@ class _QuranState extends State<Quran> {
               },
             ),
           ),
+
+          // TO Copy END
 
           Stack(
 

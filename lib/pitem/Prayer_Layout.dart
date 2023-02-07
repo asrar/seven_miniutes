@@ -121,7 +121,7 @@ class _PrayerLayoutState extends State<PrayerLayout> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SunnahHomeScreen()));
+                                  builder: (context) => HomePrayer()));
                         },
                         child: Container(
                           color: Color.fromRGBO(15, 117, 188, 1) ,

@@ -10,7 +10,8 @@ import 'package:seven_minutes/register/Register.dart';
 import 'package:seven_minutes/Widgets/CustomButton.dart';
 import 'package:seven_minutes/Widgets/TextFieldWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
+import '../notification/notification_helper.dart';
 import '../oneDayOneRaku/admin_home_screen.dart';
 
 class Login extends StatefulWidget {
@@ -18,16 +19,56 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
+
 class _LoginState extends State<Login> {
+
+  @override
+  void initState() {
+    super.initState();
+
+
+  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //     // if(Get.find<OrderController>().latestOrderList != null) {
+  //     //   _orderCount = Get.find<OrderController>().latestOrderList.length;
+  //     // }
+  //     print("onMessage: ${message.data}");
+  //     String? _type = message.notification?.bodyLocKey;
+  //     String? _orderID = message.notification?.titleLocKey;
+  //     if(_type != 'assign' && _type != 'new_order') {
+  //  //     NotificationHelper.showNotification(message, flutterLocalNotificationsPlugin, false);
+  //     }
+  //
+  //     //Get.find<OrderController>().getAllOrders();
+  //     if(_type == 'new_order') {
+  //       //_orderCount = _orderCount + 1;
+  // //      Get.dialog(NewRequestDialog(isRequest: true, onTap: () => _navigateRequestPage()));
+  //     }else if(_type == 'assign' && _orderID != null && _orderID.isNotEmpty) {
+  //   //    Get.dialog(NewRequestDialog(isRequest: false, onTap: () => _setPage(0)));
+  //     }else if(_type == 'block') {
+  //       // Get.find<AuthController>().clearSharedData();
+  //       // Get.find<AuthController>().stopLocationRecord();
+  //       // Get.offAllNamed(RouteHelper.getSignInRoute());
+  //     }
+  //   });
+  }
+
   var formKey = GlobalKey<FormState>();
   bool isGroupPerson = false;
   bool isGroupLeader = false;
   bool leaderCheck = false;
 
+  String msgStatus = "";
 
+void getTocken() async{
+  print("I am here to get token >>");
+  FirebaseMessaging fcm  =  FirebaseMessaging.instance;
+  String? token = await fcm.getToken();
+  print("FirebaseMessaging token: $token");
+}
   @override
   Widget build(BuildContext context) {
     UserManager manager = Provider.of(context).fetch(UserManager);
+   // getTocken();
 
     return SafeArea(
       child: Scaffold(
@@ -76,7 +117,18 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: 30,
                 ),
-
+                Text(
+                  msgStatus,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Comfortaa',
+                    // fontWeight: FontWeight.w900,
+                    fontSize: 15.0,
+                    letterSpacing: 0.4,
+                    color: Colors.red,
+                  ),
+                ),
                 SizedBox(
                   height: 3,
                 ),
@@ -100,31 +152,6 @@ class _LoginState extends State<Login> {
                       label: "Username",
 
                     ),
-                      //   title: TextField(
-                    //     onChanged: (value) {
-                    //       print("form value is $value");
-                    //       manager.inEmail.add(value);
-                    //     },
-                    //     textInputAction: TextInputAction.next,
-                    //     style: TextStyle(color: Colors.black),
-                    //     cursorColor: Colors.black,
-                    //     keyboardType: TextInputType.emailAddress,
-                    //     decoration: InputDecoration(
-                    //       errorText: snapshot.error == null
-                    //               ? ""
-                    //               : snapshot.error.toString(),
-                    //       border: OutlineInputBorder()
-                    // ),
-                    //     // decoration: InputDecoration(
-                    //     //   labelText: 'Enter User ID',
-                    //     //   hintStyle: TextStyle(color: Colors.yellow),
-                    //     //   contentPadding:
-                    //     //   EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    //     //   errorText: snapshot.error == null
-                    //     //       ? ""
-                    //     //       : snapshot.error.toString(), //snapshot.error!
-                    //     // ),
-                    //   ),
                     );
                   },
                 ),
@@ -357,6 +384,10 @@ class _LoginState extends State<Login> {
                                   );
                                   if (snapshot.hasData) {
                                     manager.isFormSubmit$.listen((event) async {
+                                      print("the final error status ${Overseer.viewErrorMsg}");
+                                      setState((){
+                                        msgStatus = Overseer.viewErrorMsg;
+                                      });
 
                                       SharedPreferences prefs;
                                       prefs = await SharedPreferences.getInstance();
@@ -381,7 +412,7 @@ class _LoginState extends State<Login> {
                                       } else if (snapshot.hasError) {
                                         Get.snackbar(
                                           "Error",
-                                          "Get some Error..",
+                                          "Get some Error 123..",
                                           dismissDirection:
                                               DismissDirection.horizontal,
                                           isDismissible: true,
@@ -393,7 +424,7 @@ class _LoginState extends State<Login> {
                                   } else {
                                     Get.snackbar(
                                       "Error",
-                                      "Error is getting data..",
+                                      "Error is getting data 123..",
                                       dismissDirection:
                                           DismissDirection.horizontal,
                                       isDismissible: true,
@@ -402,6 +433,7 @@ class _LoginState extends State<Login> {
                                     );
                                   }
                                   print("some error");
+                                 // Overseer.viewErrorMsg
                                   // Get.to(BottomTabbed());
                                 },
                                 child: CustomButton(
@@ -418,6 +450,7 @@ class _LoginState extends State<Login> {
 
                        ),
                        onTap: (){
+
                          Get.offAll(AdminHomeScreen());
                        },
                      ),

@@ -19,11 +19,15 @@ import '../qitem/GetPosts.dart';
 class Overseer {
   Map<dynamic, dynamic> repository = {};
 
+  static String viewErrorMsg = "";
+  static String userEmail = "";
+
   static FlutterSoundPlayer? playeraudio;
   static String cat_id = "2";
   static String audio_file = "";
   static String csrf_token_overseer = "";
  // static int? logged_in_user_id;
+  static bool iS_oneRakuScreen = false;
   static String logged_in_user_st = "";
   static String register_status = "";
   static String email = "";

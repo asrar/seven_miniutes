@@ -9,6 +9,9 @@ import 'package:seven_minutes/oneDayOneRaku/tools_stock.dart';
 import 'package:seven_minutes/oneDayOneRaku/material_stock.dart';
 import 'package:seven_minutes/qitem/Quran.dart';
 import 'package:seven_minutes/qitem/QuranRaku.dart';
+
+import '../pitem/PQuranRaku.dart';
+import '../sitem/SQuranRaku.dart';
 //import 'package:flutter/tool';
 
 
@@ -22,6 +25,8 @@ class AdminHomeScreen extends StatefulWidget {
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
+
+    Overseer.isLoadingDone = true;
     return DefaultTabController(
       length: 3,
       child: SafeArea(
@@ -50,7 +55,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 icon: const Icon(Icons.exit_to_app_outlined,color: Colors.deepOrange,),
               ),
             ],
-            title: const Text("Seven Minutes" ,style: TextStyle(fontSize: 18,
+            title: const Text("One Day One Raku" ,style: TextStyle(fontSize: 18,
                 fontWeight: FontWeight.bold ,color: Colors.deepOrange),),
             // bottom: PreferredSize(
             //     child: Text("Select Project",
@@ -78,7 +83,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     children: [
                       Container(
                         height: Get.height * 0.050,
-                        width: Get.width * 0.45,
+                        width: Get.width * 0.65,
                         decoration: BoxDecoration(
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(15)),
@@ -88,7 +93,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               Get.to(AdminProjectScreen());
                             },
                             child: Text(
-                              "Today's Raku",
+                              "Para 5 - Raku 14",
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
@@ -103,7 +108,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           value: 0.33,
                           valueColor: AlwaysStoppedAnimation(Colors.green)),)
                       ,
-                      Text("Project Progress",
+                      Text("Tilawat & Translation",
                         style: TextStyle(color: Colors.yellow),
 
                       ),
@@ -144,10 +149,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     QuranRaku()
                     ,
                     // 2nd tabbar view view
-                    QuranRaku(),
+                    PQuranRaku(),
 
                     //3rd Tabbar View
-                    QuranRaku(),
+                    SQuranRaku(),
                   ]),
                 )
               ],

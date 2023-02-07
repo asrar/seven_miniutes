@@ -69,6 +69,8 @@ class _SunnahHomeScreenState extends State<SunnahHomeScreen> {
   @override
   Widget build(BuildContext context) {
     GetSunnahPostsManager manager = Provider.of(context).fetch(GetSunnahPostsManager);
+    Overseer.iS_oneRakuScreen = false;
+    Overseer.isLoadingDone = true;
     // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     Overseer.cat_id = "2";
     return Scaffold(

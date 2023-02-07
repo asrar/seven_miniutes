@@ -68,6 +68,8 @@ class _QuranRakuState extends State<QuranRaku> {
   @override
   Widget build(BuildContext context) {
     GetPostsManager manager = Provider.of(context).fetch(GetPostsManager);
+    Overseer.iS_oneRakuScreen = true;
+    Overseer.isLoadingDone = true;
     // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     Overseer.cat_id = "2";
 

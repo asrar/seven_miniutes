@@ -56,8 +56,11 @@ class _HomePrayerState extends State<HomePrayer> {
   @override
   Widget build(BuildContext context) {
     GetPrayerPostsManager manager = Provider.of(context).fetch(GetPrayerPostsManager);
+    Overseer.iS_oneRakuScreen = false;
+    Overseer.isLoadingDone = true;
+
     // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-    Overseer.cat_id = "2";
+    Overseer.cat_id = "1";
     return Scaffold(
       backgroundColor: Colors.white,
       // floatingActionButton: FloatingActionButton(

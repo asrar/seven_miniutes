@@ -133,29 +133,19 @@ class _RegisterState extends State<Register> {
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                                          title: TextField(
-                                            onChanged: (value) {
+                                          title: TextFieldWidget(
+                                            changedValue:(value){
                                               manager.infirstName.add(value);
                                             },
-                                            textInputAction: TextInputAction.next,
-                                            obscureText: false,
-                                            style: TextStyle(color: Colors.green),
-                                            cursorColor: Colors.green,
-                                            keyboardType: TextInputType.emailAddress,
-                                            decoration: InputDecoration(
-                                              labelText: 'First Name',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 3, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),errorText: snapshot.error == null
+                                            inputType: TextInputType.text,
+                                            email:"" ,
+                                            password: false,
+                                            errorText: snapshot.error == null
                                                 ? ""
-                                                : snapshot.error.toString(),)
-                                            ,
-                                          ),
+                                                : snapshot.error.toString(),
+                                            label: "First Name",
+
+                                          )
                                           // decoration: InputDecoration(
                                           //   labelText: 'Password ',
                                           //   hintStyle: TextStyle(color: Colors.brown),
@@ -175,28 +165,18 @@ class _RegisterState extends State<Register> {
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                                          title: TextField(
-                                            onChanged: (value) {
+                                          title: TextFieldWidget(
+                                            changedValue:(value){
                                               manager.inlastName.add(value);
                                             },
-                                            textInputAction: TextInputAction.next,
-                                            obscureText: false,
-                                            style: TextStyle(color: Colors.green),
-                                            cursorColor: Colors.green,
-                                            keyboardType: TextInputType.emailAddress,
-                                            decoration: InputDecoration(
-                                              labelText: 'Last Name',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 3, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),errorText: snapshot.error == null
+                                            inputType: TextInputType.text,
+                                            email:"" ,
+                                            password: false,
+                                            errorText: snapshot.error == null
                                                 ? ""
-                                                : snapshot.error.toString(),)
-                                            ,
+                                                : snapshot.error.toString(),
+                                            label: "Last Name",
+
                                           ),
                                           // decoration: InputDecoration(
                                           //   labelText: 'Password ',
@@ -217,28 +197,18 @@ class _RegisterState extends State<Register> {
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                                          title: TextField(
-                                            onChanged: (value) {
+                                          title: TextFieldWidget(
+                                            changedValue:(value){
                                               manager.inEmail.add(value);
                                             },
-                                            textInputAction: TextInputAction.next,
-                                            obscureText: false,
-                                            style: TextStyle(color: Colors.green),
-                                            cursorColor: Colors.green,
-                                            keyboardType: TextInputType.emailAddress,
-                                            decoration: InputDecoration(
-                                              labelText: 'Email',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 3, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.green),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),errorText: snapshot.error == null
+                                            inputType: TextInputType.text,
+                                            email:"" ,
+                                            password: false,
+                                            errorText: snapshot.error == null
                                                 ? ""
-                                                : snapshot.error.toString(),)
-                                            ,
+                                                : snapshot.error.toString(),
+                                            label: "Email",
+
                                           ),
                                           // decoration: InputDecoration(
                                           //   labelText: 'Password ',
@@ -260,29 +230,18 @@ class _RegisterState extends State<Register> {
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                                          title: TextField(
-                                            onChanged: (value) {
-                                              print("value --- ${value}");
+                                          title: TextFieldWidget(
+                                            changedValue:(value){
                                               manager.inPhoneNumber.add(value);
                                             },
-                                            textInputAction: TextInputAction.next,
-                                            obscureText: false,
-                                            style: TextStyle(color: Colors.green),
-                                            cursorColor: Colors.green,
-                                            keyboardType: TextInputType.emailAddress,
-                                            decoration: InputDecoration(
-                                              labelText: 'Phone',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 3, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.green),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),errorText: snapshot.error == null
+                                            inputType: TextInputType.text,
+                                            email:"" ,
+                                            password: false,
+                                            errorText: snapshot.error == null
                                                 ? ""
-                                                : snapshot.error.toString(),)
-                                            ,
+                                                : snapshot.error.toString(),
+                                            label: "Phone",
+
                                           ),
                                           // decoration: InputDecoration(
                                           //   labelText: 'Password ',
@@ -336,28 +295,18 @@ class _RegisterState extends State<Register> {
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                                          title: TextField(
-                                            onChanged: (value) {
+                                          title: TextFieldWidget(
+                                            changedValue:(value){
                                               manager.inPassword.add(value);
                                             },
-                                            textInputAction: TextInputAction.next,
-                                            obscureText: true,
-                                            style: TextStyle(color: Colors.green),
-                                            cursorColor: Colors.green,
-                                            keyboardType: TextInputType.emailAddress,
-                                            decoration: InputDecoration(
-                                              labelText: 'Password',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 3, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.green),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),errorText: snapshot.error == null
+                                            inputType: TextInputType.text,
+                                            email:"" ,
+                                            password: true,
+                                            errorText: snapshot.error == null
                                                 ? ""
-                                                : snapshot.error.toString(),)
-                                            ,
+                                                : snapshot.error.toString(),
+                                            label: "Password",
+
                                           ),
                                           // decoration: InputDecoration(
                                           //   labelText: 'Password ',
@@ -378,28 +327,18 @@ class _RegisterState extends State<Register> {
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                                          title: TextField(
-                                            onChanged: (value) {
+                                          title: TextFieldWidget(
+                                            changedValue:(value){
                                               manager.inConfirmPassword.add(value);
                                             },
-                                            textInputAction: TextInputAction.next,
-                                            obscureText: true,
-                                            style: TextStyle(color: Colors.green),
-                                            cursorColor: Colors.green,
-                                            keyboardType: TextInputType.emailAddress,
-                                            decoration: InputDecoration(
-                                              labelText: 'Confirm Password',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 3, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.green),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),errorText: snapshot.error == null
+                                            inputType: TextInputType.text,
+                                            email:"" ,
+                                            password: true,
+                                            errorText: snapshot.error == null
                                                 ? ""
-                                                : snapshot.error.toString(),)
-                                            ,
+                                                : snapshot.error.toString(),
+                                            label: "Confirm Password",
+
                                           ),
                                           // decoration: InputDecoration(
                                           //   labelText: 'Password ',
@@ -465,29 +404,19 @@ class _RegisterState extends State<Register> {
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                                          title: TextField(
-                                            onChanged: (value) {
+                                          title: TextFieldWidget(
+                                            changedValue:(value){
                                               manager.inGroupName.add(value);
                                             },
-                                            textInputAction: TextInputAction.next,
-                                            obscureText: false,
-                                            style: TextStyle(color: Colors.green),
-                                            cursorColor: Colors.green,
-                                            keyboardType: TextInputType.emailAddress,
-                                            decoration: InputDecoration(
-                                              labelText: 'New Group Name',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 3, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.green),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),errorText: snapshot.error == null
+                                            inputType: TextInputType.text,
+                                            email:"" ,
+                                            password: false,
+                                            errorText: snapshot.error == null
                                                 ? ""
-                                                : snapshot.error.toString(),)
-                                            ,
-                                          ),
+                                                : snapshot.error.toString(),
+                                            label: "Group Name",
+
+                                          )
                                           // decoration: InputDecoration(
                                           //   labelText: 'Password ',
                                           //   hintStyle: TextStyle(color: Colors.brown),
@@ -530,29 +459,19 @@ class _RegisterState extends State<Register> {
                                         return ListTile(
                                           contentPadding:
                                           EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                                          title: TextField(
-                                            onChanged: (value) {
+                                          title:  TextFieldWidget(
+                                            changedValue:(value){
                                               manager.inGroupId.add(value);
                                             },
-                                            textInputAction: TextInputAction.next,
-                                            obscureText: false,
-                                            style: TextStyle(color: Colors.green),
-                                            cursorColor: Colors.green,
-                                            keyboardType: TextInputType.emailAddress,
-                                            decoration: InputDecoration(
-                                              labelText: 'Group Unique ID',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 3, color: Colors.blue),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: 40, color: Colors.green),
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),errorText: snapshot.error == null
+                                            inputType: TextInputType.text,
+                                            email:"" ,
+                                            password: false,
+                                            errorText: snapshot.error == null
                                                 ? ""
-                                                : snapshot.error.toString(),)
-                                            ,
-                                          ),
+                                                : snapshot.error.toString(),
+                                            label: "Group Id",
+
+                                          )
                                           // decoration: InputDecoration(
                                           //   labelText: 'Password ',
                                           //   hintStyle: TextStyle(color: Colors.brown),

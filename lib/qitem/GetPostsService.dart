@@ -46,9 +46,11 @@ class GetPostsService {
   }
   static Future<List<GetPosts>> browse() async {
     print("printig from browse testing Nitem >>>???");
-
-    print("Query URL -->  https://7minapp.s3bits.com/api/getposts?item_category_id=2&user_id=3&post_date=2022-04-09");
-    http.Response   response = await http.post(Uri.parse("https://7minapp.s3bits.com/api/getposts?item_category_id=2&user_id=3&post_date=2021-12-22"),headers: {
+    int year = Overseer.iS_oneRakuScreen ?2035:DateTime.now().year;
+    int month = DateTime.now().month;
+    int day = DateTime.now().day;
+    print("Query URL -->  https://7minapp.s3bits.com/api/getposts?item_category_id=2&user_id=3&post_date=${year}-${month}-${day}");
+    http.Response   response = await http.post(Uri.parse("https://7minapp.s3bits.com/api/getposts?item_category_id=2&user_id=3&post_date=${year}-${month}-${day}"),headers: {
 
       'Access-Control-Allow-Origin': '*',
       'Accept': 'application/json',

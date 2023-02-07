@@ -19,9 +19,11 @@ class GetPrayerPostsService {
 
   static Future<List<GetPrayerPosts>> browse() async {
     print("printig from browse testing Nitem >>>???");
-
-    print("Query URL -->  https://7minapp.s3bits.com/api/getposts?item_category_id=1&user_id=3&post_date=2022-09-01");
-    http.Response   response = await http.post(Uri.parse("https://7minapp.s3bits.com/api/getposts?item_category_id=1&user_id=3&post_date=2022-09-01"),headers: {
+    int year = Overseer.iS_oneRakuScreen ?2035:DateTime.now().year;
+    int month = DateTime.now().month;
+    int day = DateTime.now().day;
+    print("Query URL -->  https://7minapp.s3bits.com/api/getposts?item_category_id=1&user_id=3&post_date=${year}-${month}-${day}");
+    http.Response   response = await http.post(Uri.parse("https://7minapp.s3bits.com/api/getposts?item_category_id=1&user_id=3&post_date=${year}-${month}-${day}"),headers: {
 
       'Access-Control-Allow-Origin': '*',
       'Accept': 'application/json',

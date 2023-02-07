@@ -30,11 +30,23 @@ class UserService {
       print("########### Error with Ststus code ${response.statusCode} ############");
       Overseer.login_status = "user-not-exist";
       Overseer.is_user_valid = false;
+      if(content.contains("error\":")) {
+        print("the error is ${content}");
+        content = content.substring(content.indexOf("error\:")+12,content.lastIndexOf("}")-1);
+        Overseer.viewErrorMsg = content;
+
+      }{
+        print("-- the content is ${content}");
+        print("not called ${Overseer.viewErrorMsg}");
+
+     //   Overseer.viewErrorMsg = "";
+      }
+
       return false;
     } else {
       print(
           "########################## Query Executed #####################################");
-      
+      Overseer.viewErrorMsg = "";
       var jString = [content];
 
       String arr = jString.toString();
@@ -51,6 +63,9 @@ class UserService {
               collection.map((json) => LogInModel.fromJson(json)).toList();
           print("user login parsing end");
           Overseer.userId = _userList[0].loginUser.id;
+          Overseer.userName = _userList[0].loginUser.firstName + " "+ _userList[0].loginUser.lastName;
+          Overseer.userEmail = _userList[0].loginUser.email;
+
           print("-------- user id < > ${Overseer.userId}");
           SharedPreferences  prefs = await SharedPreferences.getInstance();
           prefs.setInt('User_Id',Overseer.userId);
