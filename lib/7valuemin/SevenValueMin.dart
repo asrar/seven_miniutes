@@ -180,9 +180,14 @@ class _TimerScreenState extends State<TimerScreen> {
                   shrinkWrap: true,
                   itemBuilder: ((context, index) {
                     return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       margin: const EdgeInsets.only(bottom: 5,top: 5),
                       width: double.infinity,
-                      color: Colors.red,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(15)
+                      ),
+
                       height: MediaQuery.of(context).size.height*0.11,
                       child: Center(
                         child: Row(
@@ -197,7 +202,7 @@ class _TimerScreenState extends State<TimerScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: MediaQuery.of(context).size.width*0.013,),
+                            Spacer(),
                             CircularPercentIndicator(
                               radius: 20.0,
                               backgroundColor: Colors.grey,
