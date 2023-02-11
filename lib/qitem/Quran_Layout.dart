@@ -7,6 +7,8 @@ import 'package:seven_minutes/qitem/Quran.dart';
 import 'package:seven_minutes/tabbar_layout.dart';
 import 'package:get/get.dart';
 
+import '../7valuemin/SevenValueMin.dart';
+
 class QuranLayout extends StatefulWidget {
   @override
   _QuranLayoutState createState() => _QuranLayoutState();
@@ -69,6 +71,9 @@ class _QuranLayoutState extends State<QuranLayout> {
               trailing: Icon(Icons.arrow_forward),
             ),
             ListTile(
+              onTap: (){
+                Get.to(()=> TimerScreen());
+              },
               title: Text("7 Value Minutes"),
               trailing: Icon(Icons.arrow_forward),
             ),
@@ -123,7 +128,7 @@ class _QuranLayoutState extends State<QuranLayout> {
                         },
                         child: Container(
                           color: Color.fromRGBO(15, 117, 188, 1),
-                          height: day != index ? 30 : 160,
+                          height: day != index ? 30 : 180,
                           width: day != index ? 350 : 350,
                           child: Card(
                             color: day != index

@@ -1,349 +1,225 @@
-//import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:seven_minutes/AppLayer/Overseer.dart';
-import 'package:seven_minutes/JoinGroup/JoinGroup.dart';
-import 'package:seven_minutes/audio.dart';
-import 'package:seven_minutes/bottom_tabbed.dart';
-import 'package:seven_minutes/model_images.dart';
-import 'package:seven_minutes/qitem/Quran_Layout.dart';
-import 'package:seven_minutes/tabbar_layout.dart';
-import 'package:seven_minutes/AppLayer/Provider.dart';
-import 'package:seven_minutes/AppLayer/Observer.dart';
-import 'package:seven_minutes/qitem/GetPostsManager.dart';
-import 'package:seven_minutes/qitem/GetPosts.dart';
 import 'dart:async';
-import 'package:seven_minutes/api/sound_player.dart';
-import 'package:seven_minutes/widget/timer_widget.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import '../DateFormatScreen.dart';
 
-class SevenValueMin extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+
+class TimerScreen extends StatefulWidget {
+  const TimerScreen({Key? key}) : super(key: key);
+
   @override
-  _SevenValueMinState createState() => _SevenValueMinState();
+  State<TimerScreen> createState() => _TimerScreenState();
 }
 
-class _SevenValueMinState extends State<SevenValueMin> {
-  //  AudioPlayer audioPlayer = new AudioPlayer();
-
-  Duration duration  = new Duration();
-  Duration position = new Duration();
-
-  // poistioned Scroll
-  final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
-
-  final ItemScrollController itemScrollController = ItemScrollController();
-
-  int topicId =0;
-  bool playing = false;
-  bool playingAtFirst = true;
-  final timerController =   TimerController(); // take to 7Min App
-  final player = SoundPlayer(); // take to 7 Min App
-  ScrollController _scrollController = ScrollController();
-  final imagePlayMap = {1:20,2:30,1:20,2:30,1:20,2:30,};
-
-
-  // _scrollToBottom() {
-  //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-  // }
-
-  @override
-  void initState() {
-    super.initState();
-
-    player.init(); // take to 7Min App
-  }
-
-  @override
-  void dispose() {
-    // player.dispose(); // take to 7 Min app
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    GetPostsManager manager = Provider.of(context).fetch(GetPostsManager);
-    Overseer.iS_oneRakuScreen = true;
-    Overseer.isLoadingDone = true;
-    // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-    Overseer.cat_id = "1";
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Color(0xFF3E6EA4),
-      //   child: Column(
-      //     children: [buildPlayer(),
-      //       SizedBox(height: 10),
-      //       buildPlay()],
-      //   ),
-      //   onPressed: () {
-      //     // TODO: add the audio controls
-      //
-      //   //   getAudio();
-      //   },
-      // ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-
-
-
-          // Audio(),
-          Expanded(
-            child: Observer<List<GetPosts>>(
-              stream: manager.productList,
-              onSuccess: (context, data) {
-                // snapshot.data ?? 0;
-                Overseer.quranAactivePostList = data;
-                List<GetPosts> _productList = data;
-                print("printing from list tile");
-                GetPosts _post1 = _productList[0];
-
-                topicId = _post1.iid;
-                Overseer.audio_file =  _post1.qitem;
-                Overseer.topicId = _post1.iid.toString();
-                imagePlayMap.clear();
-
-                for(int i=0;i<_productList[0].SevenImages1.length; i++) {
-                  imagePlayMap.addIf(_post1.SevenImages1[i].imgPlay!=null , i, _post1.SevenImages1[i].imgPlay);
-
-                }
-
-                print("-- map of ImagePlay ${imagePlayMap}");
-                Overseer.dataIndexList = imagePlayMap.keys.toList();
-                Overseer.scrollJumpToList  = imagePlayMap.values.toList();
-                return ScrollablePositionedList.builder(
-                  // for Auto-scrolling binding controller in build method
-                  //  controller: _scrollController,
-                  //  reverse: true,
-                    shrinkWrap: true,
-                    initialScrollIndex: 0,
-                    itemPositionsListener: itemPositionsListener,
-                    itemScrollController: itemScrollController,
-
-                    addAutomaticKeepAlives: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: _productList[0].SevenImages1.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      print("printing from list tile");
-                      GetPosts _post = _productList[0];
-
-                      Overseer.isLoadingDone = false;
-                      return imageContainer(
-                          imgPath:
-                          "https://7minapp.s3bits.com/uploads/files/" +
-                              _post.SevenImages1[index].image);
-                    });
-              },
-              onWaiting: (context) {
-                return Center(child: CircularProgressIndicator());
-              },
-              onError: (context, error) {
-                print("printing error");
-                print(error);
-                return Center(child: Text("Please Check Internet!"));
-              },
-            ),
-          ),
-
-
-        ],
-      ),
-    );
-  }
-  void getThanks(){
-
-    setState(() {
-      print("AKS .. AKS AKS");
-    });
-
-    return
-      print("jazakAllah AKS");
-  }
-  // Play button
-  Widget buildPlay() {
-    final isPlaying = player.isPlaying;
-    final Function() notifyParent;
-    print(" real playing status at start ${player.isPlaying}");
-    final icon = isPlaying && Overseer.playtime != 420 ? Icons.pause : Icons.play_arrow;
-    final text = isPlaying && Overseer.playtime != 420 ? 'Pause' : 'Play';
-
-
-
-
-    return Container(
-      padding: EdgeInsets.only(right:10),
-
-      child: ElevatedButton.icon(
-
-
-        style: ElevatedButton.styleFrom(
-          //  padding: EdgeInsets.only(right: 20),
-          minimumSize: Size(50, 40),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50)),
-          // shape: ShapeBorder.,
-          primary: Colors.indigo.shade900.withBlue(70),
-          onPrimary: Colors.white,
-        ),
-        icon: Icon(icon),
-        label: Text(
-          text,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
-        ),
-        onPressed: () async {
-          //  if (!recorder.isRecordingAvailable) return;   // to start playing player from first on_pressed
-          if(playingAtFirst){
-            //  timerController.startTimer();
-            //  setState(() {});
-            playingAtFirst = false;
-            await player.togglePlaying( whenFinished: () => getThanks());
-            setState(() {
-              if (player.isPlaying) {
-                print("--------- start timer >>>>> ${player.isPlaying}");
-                timerController.startTimer();
-
-
-              } else {
-                timerController.stopTimer();
-                print("--------- end timer >>>>> ${player.isPlaying}");
-              }
-              print("screen updated on first play");
-            });
-          }else{
-            await player.togglePlaying(whenFinished: () => getThanks());
-            setState(() {
-              if (player.isPlaying) {
-                print("--------- start timer >>>>> ${player.isPlaying}");
-                timerController.startTimer();
-
-
-              } else {
-                timerController.stopTimer();
-                print("--------- end timer >>>>> ${player.isPlaying}");
-              }
-              print("yes playing is finished 2222");
-            });
-          }
-
-
-
-        },
-      ),
-    );
-  }
-
-  Widget buildPlayer() {
-    // final text = recorder.isRecording ? 'Now Recording' : 'Press Start';
-    final animate = player.isPlaying;
-
-    print("duration is  ---------------------- ${duration.inMinutes} ");
-    print("position is --------------- ${ position.inMinutes}");
-    if(duration.inMinutes == 2 ) {
+class _TimerScreenState extends State<TimerScreen> {
+  Timer? _timer = Timer(const Duration(seconds: 0), (){});
+  Timer? _timer1 = Timer(const Duration(seconds: 0), (){});
+  Timer? _timer2 = Timer(const Duration(seconds: 0), (){});
+  Timer? _timer3 = Timer(const Duration(seconds: 0), (){});
+  Timer? _timer4 = Timer(const Duration(seconds: 0), (){});
+  Timer? _timer5 = Timer(const Duration(seconds: 0), (){});
+  Timer? _timer6 = Timer(const Duration(seconds: 0), (){});
+  int _start = 0;
+  int _start1 = 0;
+  int _start2 = 0;
+  int _start3 = 0;
+  int _start4 = 0;
+  int _start5 = 0;
+  int _start6 = 0;
+  List<String> weeklyDays = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Monday',
+  ];
+  List<dynamic> percentValue = [];
+  void stop(){
+    if(_timer != null){
       setState(() {
-        print("real pringing is done now");
+        // _start = 0;
+        _timer!.cancel();
+        _timer1!.cancel();
+        _timer2!.cancel();
+        _timer3!.cancel();
+        _timer4!.cancel();
+        _timer5!.cancel();
+        _timer6!.cancel();
       });
     }
+  }
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    // _start = 0;
+    print("this is timer value inside if ${_start.toString()}");
+    _timer = Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if(_start < 60){
+          setState(() {
+            print("this is timer value ${_start.toString()}");
+            percentValue.add(_start);
+            _start++;
+          });
+        } else if(_start1 <60){
+          setState(() {
+            print("this is timer value ${_start1.toString()}");
+            percentValue.add(_start1);
+            _start1++;
+          });
+        }else if(_start2 <60){
+          setState(() {
+            print("this is timer value ${_start2.toString()}");
+            percentValue.add(_start2);
+            _start2++;
+          });
+        }else if(_start3 < 60){
+          setState(() {
+            print("this is timer value ${_start3.toString()}");
+            percentValue.add(_start3);
+            _start3++;
+          });
+        }else if(_start4 < 60){
+          setState(() {
+            print("this is timer value ${_start4.toString()}");
+            percentValue.add(_start4);
+            _start4++;
+          });
+        } else if(_start5 < 60){
+          setState(() {
+            print("this is timer value ${_start5.toString()}");
+            percentValue.add(_start5);
+            _start5++;
+          });
+        } else {
+          if (_start6 >= 60) {
+            print("timer 1 cancel ");
+            setState(() {
+              timer.cancel();
+            });
+          } else{
+            setState(() {
+              print("this is timer value ${_start6.toString()}");
+              percentValue.add(_start6);
+              _start6++;
+            });
+          }
+        }
+         // else {
 
-
-    return AvatarGlow(
-
-      endRadius: 35,
-      animate: animate,
-      repeatPauseDuration: Duration(milliseconds: 100),
-      child: CircleAvatar(
-        radius: 25,
-
-        backgroundColor: Colors.indigo.shade900.withBlue(70),
-        child: player.isPlaying
-            ? Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TimerWidget(controller: timerController,refreshParent: refresh),
-          ],
-        )
-        //Icon(Icons.audiotrack_outlined, size: 120)
-            : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TimerWidget(controller: timerController,refreshParent: refresh,),
-          ],
+        // }
+        // }
+      },
+    );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    startTimer();
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    var timerValue = _start / 60;
+    // var timerValueSecond = timerValue * 1;
+    ///
+    var timerValue1 = _start1 / 60;
+    // var timerValueSecond1 = timerValue1 * 1;
+    ///
+    var timerValue2 = _start2 / 60;
+    // var timerValueSecond2 = timerValue2 * 1;
+    ///
+    var timerValue3 = _start3 / 60;
+    // var timerValueSecond3 = timerValue3 * 1;
+    ///
+    var timerValue4 = _start4 / 60;
+    // var timerValueSecond4 = timerValue4 * 1;
+    ///
+    var timerValue5 = _start5 / 60;
+    // var timerValueSecond5 = timerValue5 * 1;
+    ///
+    var timerValue6 = _start6 / 60;
+    // var timerValueSecond6 = timerValue6 * 1;
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
+        title:  Text(
+          "Timer ${_timer!.isActive ? "start":"startas"}",
+          style: TextStyle(color: Colors.black),
         ),
-        // ),
+        actions: [
+          GestureDetector(
+              onTap: () {
+                _timer!.isActive ? stop() :startTimer();
+              },
+              child: _timer!.isActive ? Icon(Icons.stop): Icon(Icons.play_circle_fill)),
+          const SizedBox(
+            width: 10,
+          ),
+
+          const SizedBox(
+            width: 20,
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ListView.builder(
+                  itemCount: weeklyDays.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: ((context, index) {
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 5,top: 5),
+                      width: double.infinity,
+                      color: Colors.red,
+                      height: MediaQuery.of(context).size.height*0.11,
+                      child: Center(
+                        child: Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width*0.4,
+                              child: Row(
+                                children: [
+                                  Text(weeklyDays[index]),
+                                  SizedBox(width: MediaQuery.of(context).size.width*0.013,),
+                                  Text(index == 0 ? _start.toString() : index == 1 ?  _start1.toString() : index == 2 ? _start2.toString() : index == 3 ? _start3.toString()  : index == 4 ?  _start4.toString() : index == 5 ?   _start5.toString() :  _start6.toString() ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: MediaQuery.of(context).size.width*0.013,),
+                            CircularPercentIndicator(
+                              radius: 20.0,
+                              backgroundColor: Colors.grey,
+                              progressColor: Colors.blue,
+                              lineWidth: 5.0,
+                              percent: index == 0 ? timerValue : index == 1 ?  timerValue1 : index == 2 ? timerValue2 : index == 3 ? timerValue3  : index == 4 ?  timerValue4 : index == 5 ?  timerValue5 :  timerValue6,
+                              center: Text(
+                                  index == 0 ? _start.toString() : index == 1 ?  _start1.toString() : index == 2 ? _start2.toString() : index == 3 ? _start3.toString()  : index == 4 ?  _start4.toString() : index == 5 ?   _start5.toString() :  _start6.toString(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }))
+            ],
+          ),
+        ),
       ),
     );
   }
-
-  Widget imageContainerLocal({required String imgPath}) {
-    return Container(
-      child: Image(
-        fit: BoxFit.cover,
-        image: AssetImage(imgPath),
-      ),
-    );
-  }
-
-  Widget imageContainer({required String imgPath}) {
-    return Container(
-      child: Image.network(
-        imgPath,
-        fit: BoxFit.fill,
-
-      ),
-    );
-  }
-
-  refresh() {
-    if(Overseer.jumpToIndex != 1000) {
-      print("going to jump ${Overseer.jumpToIndex}");
-      itemScrollController.jumpTo(index: Overseer.jumpToIndex);
-    }
-    else {
-      setState(() {});
-    }
-  }
-
-// void getAudio() async {
-//   var url = "http://welldoneapps.net/tone.mp3";
-//
-//   // playing is pause  bu default
-//
-//   if (playing) {
-//     // Pause song
-//
-//     var res = await audioPlayer.pause();
-//     if (res == 1) {
-//       setState(() {
-//         playing = false;
-//       });
-//     }
-//   } else {
-//     // Play song
-//
-//     var res = await audioPlayer.play(url, isLocal: false);
-//     if (res == 1) {
-//       setState(() {
-//         playing = true;
-//       });
-//     }
-//   }
-//
-//   audioPlayer.onDurationChanged.listen((Duration dd) {
-//     setState(() {
-//       duration = dd;
-//     });
-//   });
-//
-//   audioPlayer.onAudioPositionChanged.listen((Duration dd) {
-//     setState(() {
-//       position = dd;
-//     });
-//   });
-// }
 }

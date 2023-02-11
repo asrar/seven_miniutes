@@ -50,15 +50,6 @@ class MyApp extends StatelessWidget {
                 },
               ),
             );
-    //       }
-    //       print("--- waiting and waiting");
-    //       return CircularProgressIndicator();
-    //     }
-    //
-    //
-    //     // Initialize FlutterFire
-    //
-    // );
   }
   //ok
 }
