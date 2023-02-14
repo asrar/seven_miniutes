@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:seven_minutes/AppLayer/Overseer.dart';
@@ -15,9 +16,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String? token ;
+  // FirebaseMessaging token =  FirebaseMessaging.instance;
+  Future<void> getToken() async {
+    token = await FirebaseMessaging.instance.getToken();
+    print("this is my fcm token ${token.toString()}");
+  }
   @override
   void initState() {
     super.initState();
+    getToken();
     Timer(Duration(milliseconds: 4500), () async {
       SharedPreferences prefs;
       prefs = await SharedPreferences.getInstance();
