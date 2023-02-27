@@ -45,8 +45,8 @@ dependencies:
   # recording animation
   avatar_glow: 2.0.1
 
-  # record and play audio
-  flutter_sound_lite: 8.5.0
+  # record and play audio  8.5.0
+  flutter_sound_lite:
 
   # file permissions
   permission_handler: #9.0.2  #5.1.0+2  #8.1.2
