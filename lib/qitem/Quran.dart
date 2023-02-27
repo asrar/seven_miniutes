@@ -236,7 +236,7 @@ class _QuranState extends State<Quran> {
                 return Center(child: CircularProgressIndicator());
               },
               onError: (context, error) {
-                print("printing error");
+                print("printing error ");
                 print(error);
                return Center(child: Text("Please Check Internet!"));
               },
